@@ -4,18 +4,33 @@ using UnityEngine;
 
 public class AntSpawner : MonoBehaviour {
 
-	
+    float timer;
+    float chance;
+    public float timeToSpawn;
+    public GameObject seedAnt;
+    public GameObject eggAnt;
 
-	// Use this for initialization
-	void Start () {
-		// get the prefabs
-		
+	void Start () 
+    {
+		// get the prefabs		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void Update () 
+    {
+        if(timer >= timeToSpawn)
+        {
+            chance = Random.Range(0f, 1f);
+            if(chance > 0.8)
+            {
+                Instantiate(eggAnt, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(seedAnt, transform.position, Quaternion.identity);
+            }
+            timer = 0;
+        }
+        timer += Time.deltaTime;	
 	}
-
-
 }
