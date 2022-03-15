@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6990670657287731561}
   m_Layer: 0
   m_Name: seed
-  m_TagString: Target
+  m_TagString: SEED_ON_ANT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 6990670657346085920}
   - component: {fileID: 6990670657346085921}
   - component: {fileID: 6990670657346085925}
+  - component: {fileID: 5964864139369240838}
+  - component: {fileID: 5312852677158683831}
   m_Layer: 0
   m_Name: seedAnt
   m_TagString: Untagged
@@ -186,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 20
-  maxSpeed: 10
+  maxSpeed: 5
   maxAngularAcceleration: 360
   maxAngularSpeed: 180
   position: {x: 0, y: 0, z: 0}
@@ -250,3 +252,29 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &5964864139369240838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6990670657346085983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa81a3e1dafe7f42adf485d0d4a205e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointReachedRadius: 2
+--- !u!114 &5312852677158683831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6990670657346085983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2092ea1b79a0e945bc432e722fed222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
