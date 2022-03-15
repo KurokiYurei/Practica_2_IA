@@ -8,7 +8,7 @@ namespace FSM
 {
     public class FSM_AntWander : FiniteStateMachine
     {
-        public enum State { INITIAL, WANDERING, EXITING }
+        public enum State { INITIAL, ARRIVE_POINT, EXITING }
 
         public State currentState = State.INITIAL;
 
@@ -48,9 +48,9 @@ namespace FSM
             switch (currentState)
             {
                 case State.INITIAL:
-                    ChangeState(State.WANDERING);
+                    ChangeState(State.ARRIVE_POINT);
                     break;
-                case State.WANDERING:
+                case State.ARRIVE_POINT:
                     if (SensingUtils.DistanceToTarget(gameObject, target) <= blackboard.pointReachedRadius)
                     {
                         if (objectCarried.tag == "TRANSPORTING_SEED")
@@ -85,7 +85,7 @@ namespace FSM
             // EXIT LOGIC. 
             switch (currentState)
             {
-                case State.WANDERING:
+                case State.ARRIVE_POINT:
                     pathFeeder.enabled = false;
                     pathFollowing.enabled = false;
                     break;
@@ -94,7 +94,7 @@ namespace FSM
             // ENTER LOGIC
             switch (newState)
             {
-                case State.WANDERING:
+                case State.ARRIVE_POINT:
                     target = blackboard.GetRandomWanderPoint();
                     pathFeeder.target = target;
                     pathFeeder.enabled = true;
