@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1021708891352481599}
   m_Layer: 0
   m_Name: egg
-  m_TagString: EGG_ON_ANT
+  m_TagString: TRANSPORTING_EGG
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

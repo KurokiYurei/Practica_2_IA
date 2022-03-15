@@ -8,7 +8,7 @@ namespace FSM
 {
     public class FSM_AntWander : FiniteStateMachine
     {
-        public enum State { INITIAL, WANDERING, EXITING}
+        public enum State { INITIAL, WANDERING, EXITING }
 
         public State currentState = State.INITIAL;
 
@@ -53,6 +53,15 @@ namespace FSM
                 case State.WANDERING:
                     if (SensingUtils.DistanceToTarget(gameObject, target) <= blackboard.pointReachedRadius)
                     {
+                        if (objectCarried.tag == "TRANSPORTING_SEED")
+                        {
+                            objectCarried.tag = "SEED_DROPPED";
+                        }
+                        else
+                        {
+                            objectCarried.tag = "EGG_DROPPED";
+                        }
+
                         objectCarried.transform.parent = null;
                         GraphNode node = AstarPath.active.GetNearest(objectCarried.transform.position, NNConstraint.Default).node;
                         objectCarried.transform.position = (Vector3)node.position;
@@ -63,7 +72,7 @@ namespace FSM
                 case State.EXITING:
                     if (SensingUtils.DistanceToTarget(gameObject, target) <= blackboard.pointReachedRadius)
                     {
-                        Debug.Log("EXITED");
+                        //Debug.Log("EXITED");
                         Destroy(gameObject);
                         break;
                     }

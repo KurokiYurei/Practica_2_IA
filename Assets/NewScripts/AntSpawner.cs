@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AntSpawner : MonoBehaviour {
+
+public class AntSpawner : MonoBehaviour
+{
 
     float timer;
     float chance;
@@ -10,18 +12,19 @@ public class AntSpawner : MonoBehaviour {
     public GameObject seedAnt;
     public GameObject eggAnt;
 
-	void Start () 
+    void Start()
     {
-		// get the prefabs		
-	}
-	
+        // get the prefabs		
+        timeToSpawn = Random.Range(5, 26);
+    }
 
-	void Update () 
+
+    void Update()
     {
-        if(timer >= timeToSpawn)
+        if (timer >= timeToSpawn)
         {
             chance = Random.Range(0f, 1f);
-            if(chance > 0.8)
+            if (chance > 0.8)
             {
                 Instantiate(eggAnt, transform.position, Quaternion.identity);
             }
@@ -30,7 +33,8 @@ public class AntSpawner : MonoBehaviour {
                 Instantiate(seedAnt, transform.position, Quaternion.identity);
             }
             timer = 0;
+            timeToSpawn = Random.Range(5, 26);
         }
-        timer += Time.deltaTime;	
-	}
+        timer += Time.deltaTime;
+    }
 }

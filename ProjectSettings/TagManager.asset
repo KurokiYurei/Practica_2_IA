@@ -4,14 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - SEED_ON_ANT
-  - EGG_ON_ANT
   - EXITPOINT
   - WANDERPOINT
   - HATCHINGPOINT
   - STORINGPOINT
   - EGG_DROPPED
   - SEED_DROPPED
+  - EGG_STORED
+  - SEED_STORED
+  - TRANSPORTING_SEED
+  - TRANSPORTING_EGG
   layers:
   - Default
   - TransparentFX

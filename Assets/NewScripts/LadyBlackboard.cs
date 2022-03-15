@@ -6,11 +6,11 @@ public class LadyBlackboard : MonoBehaviour
 {
     public float pointReachedRadius = 2f;
 
-    private float closestEggRadius = 50f;
-    private float randomEggRadius = 180f;
-    private float closestSeedRadius = 80f;
-    private float randomSeedRadius = 125f;
-    private float eggWhileSeedRadius = 25f;
+    public float closestEggRadius = 50f;
+    public float randomEggRadius = 180f;
+    public float closestSeedRadius = 80f;
+    public float randomSeedRadius = 125f;
+    public float eggWhileSeedRadius = 25f;
 
     private GameObject[] wanderPoints;
     private GameObject[] storingPoints;
