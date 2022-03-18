@@ -195,6 +195,7 @@ namespace FSM
                 case State.WANDERING:
                     pathFeeder.enabled = false;
                     pathFollowing.enabled = false;
+
                     break;
                 case State.ARRIVE_EGG:
                     pathFeeder.enabled = false;

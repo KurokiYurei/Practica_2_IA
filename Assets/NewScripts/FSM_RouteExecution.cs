@@ -12,19 +12,31 @@ namespace FSM
 
         public State currentState = State.INITIAL;
 
+        private Arrive arrive;
+        private Seek seek;
         private Seeker seeker;
         private Path currentPath;
 
-        private GameObject target;
+        public int currentWaypointIndex = 0;
+        public GameObject seekerTarget;
+        public GameObject target;
         private float pointReachedRadius = 2f;
 
         void Start()
         {
+            arrive = GetComponent<Arrive>();
+            seek = GetComponent<Seek>();
+            seeker = GetComponent<Seeker>();
+
+            seek.enabled = false;
+            arrive.enabled = false;
+            arrive.closeEnoughRadius = pointReachedRadius;
         }
 
         public override void Exit()
         {
-
+            seek.enabled = false;
+            arrive.enabled = false;
             base.Exit();
         }
 
@@ -42,11 +54,17 @@ namespace FSM
                     ChangeState(State.GENERATING);
                     break;
                 case State.GENERATING:
-                    seeker.StartPath(this.transform.position, target.transform.position, OnPathComplete);
+                    ChangeState(State.FOLLOWING);
                     break;
                 case State.FOLLOWING:
                     if (SensingUtils.DistanceToTarget(gameObject, target) <= pointReachedRadius)
                     {
+                        currentWaypointIndex++;
+                        if (currentWaypointIndex == currentPath.vectorPath.Count)
+                        {
+                            ChangeState(State.TERMINATED);
+                            break;
+                        }       
                         ChangeState(State.FOLLOWING);
                         break;
                     }
@@ -58,38 +76,51 @@ namespace FSM
 
         void ChangeState(State newState)
         {
-            // EXIT LOGIC. This particular FSM has no exit logic
-            /*
+            // EXIT LOGIC
             switch (currentState)
             {
-                // could stop the pathFeeder but no need
-                case State.WANDERING: break;
+                case State.GENERATING:
+                    break;
+                case State.FOLLOWING:
+                    seek.enabled = false;
+                    arrive.enabled = false;
+                    break;
+
             }
-            */
 
             // ENTER LOGIC
             switch (newState)
             {
                 case State.GENERATING:
-                    target = GetRandomPoint();
+                    seeker.StartPath(this.transform.position, seekerTarget.transform.position, OnPathComplete);
+                    break;
+                case State.FOLLOWING:
+                    target.transform.position = currentPath.vectorPath[currentWaypointIndex];
+                    if(currentWaypointIndex == currentPath.vectorPath.Count - 1)
+                    {
+                        arrive.target = target;
+                        arrive.enabled = true;
+                        break;
+                    }
+                    else
+                    {
+                        seek.target = target;
+                        seek.enabled = true;
+                        break;
+                    }                      
+                case State.TERMINATED:
+
                     break;
             }
 
             currentState = newState;
         }
 
-        GameObject GetRandomPoint()
-        {
-            GameObject[] wanderPoints = GameObject.FindGameObjectsWithTag("WANDERPOINT");
-            return wanderPoints[Random.Range(0, wanderPoints.Length)];
-        }
-
         public void OnPathComplete(Path p)
         {
             // this is a "callback" method. if this method is called, a path has been computed and "stored" in p
             currentPath = p;
-
-            
+            currentWaypointIndex = 0;
         }
     }
 
