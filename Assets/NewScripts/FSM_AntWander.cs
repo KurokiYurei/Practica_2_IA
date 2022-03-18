@@ -13,27 +13,26 @@ namespace FSM
         public State currentState = State.INITIAL;
 
         private AntBlackboard blackboard;
-        private PathFeeder pathFeeder;
-        private PathFollowing pathFollowing;
+     
         private GameObject target;
         private GameObject objectCarried;
+
+        private FSM_RouteExecution FSMroute;
 
         void Start()
         {
             // get what we need...
             blackboard = GetComponent<AntBlackboard>();
-            pathFeeder = GetComponent<PathFeeder>();
-            pathFollowing = GetComponent<PathFollowing>();
-            pathFeeder.enabled = false;
-            pathFollowing.enabled = false;
+
+            FSMroute = GetComponent<FSM_RouteExecution>();
+            FSMroute.enabled = false;
 
             objectCarried = gameObject.transform.GetChild(0).gameObject;
         }
 
         public override void Exit()
         {
-            pathFeeder.enabled = false;
-            pathFollowing.enabled = false;
+            FSMroute.enabled = false;
             base.Exit();
         }
 
@@ -61,7 +60,6 @@ namespace FSM
                         {
                             objectCarried.tag = "EGG_DROPPED";
                         }
-
                         objectCarried.transform.parent = null;
                         GraphNode node = AstarPath.active.GetNearest(objectCarried.transform.position, NNConstraint.Default).node;
                         objectCarried.transform.position = (Vector3)node.position;
@@ -72,7 +70,6 @@ namespace FSM
                 case State.EXITING:
                     if (SensingUtils.DistanceToTarget(gameObject, target) <= blackboard.pointReachedRadius)
                     {
-                        //Debug.Log("EXITED");
                         Destroy(gameObject);
                         break;
                     }
@@ -86,8 +83,7 @@ namespace FSM
             switch (currentState)
             {
                 case State.ARRIVE_POINT:
-                    pathFeeder.enabled = false;
-                    pathFollowing.enabled = false;
+                    FSMroute.Exit();                 
                     break;
             }
 
@@ -96,15 +92,13 @@ namespace FSM
             {
                 case State.ARRIVE_POINT:
                     target = blackboard.GetRandomWanderPoint();
-                    pathFeeder.target = target;
-                    pathFeeder.enabled = true;
-                    pathFollowing.enabled = true;
+                    FSMroute.seekerTarget = target;
+                    FSMroute.ReEnter();            
                     break;
                 case State.EXITING:
                     target = blackboard.GetRandomExitPoint();
-                    pathFeeder.target = target;
-                    pathFeeder.enabled = true;
-                    pathFollowing.enabled = true;
+                    FSMroute.seekerTarget = target;
+                    FSMroute.ReEnter();            
                     break;
             }
             currentState = newState;

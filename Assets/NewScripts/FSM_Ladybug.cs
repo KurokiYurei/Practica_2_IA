@@ -21,9 +21,8 @@ namespace FSM
         public State currentState = State.INITIAL;
 
         private LadyBlackboard blackboard;
-        private PathFeeder pathFeeder;
-        private PathFollowing pathFollowing;
         private GameObject target;
+        private FSM_RouteExecution FSMroute;
 
         private GameObject egg;
         private GameObject seed;
@@ -31,16 +30,14 @@ namespace FSM
         void Start()
         {
             blackboard = GetComponent<LadyBlackboard>();
-            pathFeeder = GetComponent<PathFeeder>();
-            pathFollowing = GetComponent<PathFollowing>();
-            pathFeeder.enabled = false;
-            pathFollowing.enabled = false;
+            FSMroute = GetComponent<FSM_RouteExecution>();
+            FSMroute.enabled = false;
 
         }
         public override void Exit()
         {
-            pathFeeder.enabled = false;
-            pathFollowing.enabled = false;
+            FSMroute.enabled = false;
+
             base.Exit();
         }
 
@@ -193,25 +190,19 @@ namespace FSM
             switch (currentState)
             {
                 case State.WANDERING:
-                    pathFeeder.enabled = false;
-                    pathFollowing.enabled = false;
-
+                    FSMroute.Exit();
                     break;
                 case State.ARRIVE_EGG:
-                    pathFeeder.enabled = false;
-                    pathFollowing.enabled = false;
+                    FSMroute.Exit();
                     break;
                 case State.TRANSPORTING_EGG:
-                    pathFeeder.enabled = false;
-                    pathFollowing.enabled = false;
+                    FSMroute.Exit();
                     break;
                 case State.ARRRIVE_SEED:
-                    pathFeeder.enabled = false;
-                    pathFollowing.enabled = false;
+                    FSMroute.Exit();
                     break;
                 case State.TRANSPORTING_SEED:
-                    pathFeeder.enabled = false;
-                    pathFollowing.enabled = false;
+                    FSMroute.Exit();
                     break;
                 default:
                     break;
@@ -222,46 +213,38 @@ namespace FSM
             {
                 case State.WANDERING:
                     target = blackboard.GetRandomWanderPoint();
-                    pathFeeder.target = target;
-                    pathFeeder.enabled = true;
-                    pathFollowing.enabled = true;
+                    FSMroute.seekerTarget = target;
+                    FSMroute.ReEnter();
                     break;
                 case State.ARRIVE_EGG:
                     target = egg;
-                    pathFeeder.target = target;
-                    pathFeeder.enabled = true;
-                    pathFollowing.enabled = true;
+                    FSMroute.seekerTarget = target;
+                    FSMroute.ReEnter();
                     break;
                 case State.TRANSPORTING_EGG:
                     egg.tag = "TRANSPORTING_EGG";
                     egg.transform.parent = gameObject.transform;
                     target = blackboard.GetRandomHatchingPoint();
-                    pathFeeder.target = target;
-                    pathFeeder.enabled = true;
-                    pathFollowing.enabled = true;
+                    FSMroute.seekerTarget = target;
+                    FSMroute.ReEnter();
                     break;
                 case State.ARRRIVE_SEED:
                     target = seed;
-                    pathFeeder.target = target;
-                    pathFeeder.enabled = true;
-                    pathFollowing.enabled = true;
+                    FSMroute.seekerTarget = target;
+                    FSMroute.ReEnter();
                     break;
                 case State.TRANSPORTING_SEED:
                     seed.tag = "TRANSPORTING_SEED";
                     seed.transform.parent = gameObject.transform;
                     target = blackboard.GetRandomStoringPoint();
-                    pathFeeder.target = target;
-                    pathFeeder.enabled = true;
-                    pathFollowing.enabled = true;
+                    FSMroute.seekerTarget = target;
+                    FSMroute.ReEnter();
                     break;
                 default:
                     break;
             }
-
             currentState = newState;
         }
-
-
     }
 }
 

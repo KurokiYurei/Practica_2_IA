@@ -31,6 +31,8 @@ namespace FSM
             seek.enabled = false;
             arrive.enabled = false;
             arrive.closeEnoughRadius = pointReachedRadius;
+
+            target = gameObject.transform.Find("target").gameObject;
         }
 
         public override void Exit()
@@ -57,6 +59,7 @@ namespace FSM
                     ChangeState(State.FOLLOWING);
                     break;
                 case State.FOLLOWING:
+                    target.transform.position = currentPath.vectorPath[currentWaypointIndex];
                     if (SensingUtils.DistanceToTarget(gameObject, target) <= pointReachedRadius)
                     {
                         currentWaypointIndex++;
@@ -85,7 +88,6 @@ namespace FSM
                     seek.enabled = false;
                     arrive.enabled = false;
                     break;
-
             }
 
             // ENTER LOGIC
@@ -108,17 +110,12 @@ namespace FSM
                         seek.enabled = true;
                         break;
                     }                      
-                case State.TERMINATED:
-
-                    break;
             }
-
             currentState = newState;
         }
 
         public void OnPathComplete(Path p)
         {
-            // this is a "callback" method. if this method is called, a path has been computed and "stored" in p
             currentPath = p;
             currentWaypointIndex = 0;
         }

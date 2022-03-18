@@ -13,9 +13,8 @@ public class AntSpawner : MonoBehaviour
     public GameObject eggAnt;
 
     void Start()
-    {
-        // get the prefabs		
-        timeToSpawn = 2;//Random.Range(5, 26);
+    {	
+        timeToSpawn = Random.Range(5, 26);
     }
 
 
@@ -33,7 +32,7 @@ public class AntSpawner : MonoBehaviour
                 Instantiate(seedAnt, transform.position, Quaternion.identity);
             }
             timer = 0;
-            //timeToSpawn = Random.Range(5, 26);
+            timeToSpawn = Random.Range(5, 26);
         }
         timer += Time.deltaTime;
     }
