@@ -17,10 +17,10 @@ namespace FSM
         private Seeker seeker;
         private Path currentPath;
 
-        public int currentWaypointIndex = 0;
+        private int currentWaypointIndex = 0;
         public GameObject seekerTarget;
-        public GameObject target;
-        private float pointReachedRadius = 2f;
+        private GameObject target;
+        public float pointReachedRadius = 2f;
 
         void Start()
         {
@@ -30,7 +30,6 @@ namespace FSM
 
             seek.enabled = false;
             arrive.enabled = false;
-            arrive.closeEnoughRadius = pointReachedRadius;
 
             target = gameObject.transform.Find("target").gameObject;
         }

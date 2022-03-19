@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 20
-  maxSpeed: 5
+  maxSpeed: 6
   maxAngularAcceleration: 360
   maxAngularSpeed: 180
   position: {x: 0, y: 0, z: 0}
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 1
-  closeEnoughRadius: 2
+  closeEnoughRadius: 1
   slowDownRadius: 4
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
@@ -338,9 +338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  currentWaypointIndex: 0
   seekerTarget: {fileID: 0}
-  target: {fileID: 0}
+  pointReachedRadius: 2
 --- !u!1 &15726946
 GameObject:
   m_ObjectHideFlags: 0
@@ -15467,7 +15466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 20
-  maxSpeed: 5
+  maxSpeed: 6
   maxAngularAcceleration: 360
   maxAngularSpeed: 180
   position: {x: 0, y: 0, z: 0}
@@ -15569,7 +15568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 1
-  closeEnoughRadius: 2
+  closeEnoughRadius: 1
   slowDownRadius: 4
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
@@ -15586,9 +15585,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  currentWaypointIndex: 0
   seekerTarget: {fileID: 0}
-  target: {fileID: 0}
+  pointReachedRadius: 2
 --- !u!1 &774718886
 GameObject:
   m_ObjectHideFlags: 0
@@ -29763,7 +29761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAcceleration: 20
-  maxSpeed: 5
+  maxSpeed: 6
   maxAngularAcceleration: 360
   maxAngularSpeed: 180
   position: {x: 0, y: 0, z: 0}
@@ -29924,7 +29922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 1
-  closeEnoughRadius: 2
+  closeEnoughRadius: 1
   slowDownRadius: 4
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
@@ -29941,9 +29939,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  currentWaypointIndex: 0
   seekerTarget: {fileID: 0}
-  target: {fileID: 0}
+  pointReachedRadius: 2
 --- !u!1 &1742700623
 GameObject:
   m_ObjectHideFlags: 0

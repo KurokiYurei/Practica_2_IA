@@ -264,9 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  currentWaypointIndex: 0
   seekerTarget: {fileID: 0}
-  target: {fileID: 0}
+  pointReachedRadius: 2
 --- !u!114 &4608334221422430541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationalPolicy: 1
-  closeEnoughRadius: 2
+  closeEnoughRadius: 1.8
   slowDownRadius: 4
   timeToDesiredSpeed: 0.1
   target: {fileID: 0}
